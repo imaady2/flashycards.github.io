@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyFlow - Master Your Learning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+         :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #f97316;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #020617;
+            --dark-elevated: #020617;
+            --light: #f8fafc;
+            --glass: rgba(15, 23, 42, 0.85);
+            --glass-soft: rgba(15, 23, 42, 0.92);
+            --glass-hover: rgba(30, 64, 175, 0.45);
+            --border-subtle: rgba(148, 163, 184, 0.35);
+            --accent-glow: 0 0 30px rgba(94, 234, 212, 0.4);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: radial-gradient(circle at 0% 0%, rgba(94, 234, 212, 0.12), transparent 55%), radial-gradient(circle at 100% 100%, rgba(129, 140, 248, 0.18), transparent 55%), radial-gradient(circle at 0% 100%, rgba(251, 146, 60, 0.16), transparent 55%), radial-gradient(circle at 80% 0%, rgba(56, 189, 248, 0.16), transparent 55%), linear-gradient(135deg, #020617 0%, #020617 45%, #020617 100%);
+            min-height: 100vh;
+            padding: 32px 20px 40px;
+            overflow-x: hidden;
+            color: #e5e7eb;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background: radial-gradient(circle at 20% -10%, rgba(129, 140, 248, 0.18), transparent 55%), radial-gradient(circle at 80% 110%, rgba(94, 234, 212, 0.18), transparent 55%);
+            opacity: 0.8;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+        /* Header */
+        
+        header {
+            background: linear-gradient(120deg, rgba(15, 23, 42, 0.94), rgba(15, 23, 42, 0.88));
+            border-radius: 22px;
+            padding: 26px 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            box-shadow: 0 24px 80px rgba(15, 23, 42, 0.95), 0 0 0 1px rgba(15, 23, 42, 0.6);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            border-radius: 999px;
+            background: radial-gradient(circle, rgba(129, 140, 248, 0.4), transparent 70%);
+            top: -120px;
+            right: -60px;
+            opacity: 0.7;
+            filter: blur(3px);
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 999px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.35), transparent 70%);
+            bottom: -80px;
+            left: -40px;
+            opacity: 0.9;
+        }
+        
+        header h1 {
+            position: relative;
+            font-family: 'Poppins', sans-serif;
+            font-size: 40px;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            background: linear-gradient(120deg, #e5e7eb 0%, #f97316 45%, #22c55e 75%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+            flex: 1;
+            min-width: 250px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        header h1 span {
+            font-size: 24px;
+            opacity: 0.7;
+            font-weight: 500;
+        }
+        
+        header p {
+            position: relative;
+            color: rgba(148, 163, 184, 0.95);
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            white-space: nowrap;
+        }
+        /* Animated accent line under tagline */
+        
+        header p::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 46%;
+            height: 1px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, rgba(96, 165, 250, 0.2), rgba(94, 234, 212, 0.85));
+            box-shadow: 0 0 15px rgba(94, 234, 212, 0.6);
+            transform-origin: left;
+            animation: headerUnderline 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes headerUnderline {
+            from {
+                transform: scaleX(0.6);
+                opacity: 0.5;
+            }
+            to {
+                transform: scaleX(1);
+                opacity: 1;
+            }
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 310px minmax(0, 1fr);
+            gap: 26px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 1024px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 22px 24px;
+            }
+            header h1 {
+                font-size: 32px;
+            }
+            header p {
+                font-size: 11px;
+            }
+        }
+        /* Sidebar */
+        
+        .sidebar {
+            background: var(--glass);
+            backdrop-filter: blur(24px);
+            border-radius: 20px;
+            padding: 22px 20px 20px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 24px 70px rgba(15, 23, 42, 0.85), 0 0 0 1px rgba(15, 23, 42, 0.7);
+            height: fit-content;
+            position: sticky;
+            top: 22px;
+        }
+        
+        .sidebar h3 {
+            color: #e5e7eb;
+            margin-bottom: 18px;
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            opacity: 0.9;
+        }
+        
+        .folder-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 460px;
+            overflow-y: auto;
+            margin-bottom: 18px;
+            padding-right: 4px;
+        }
+        
+        .folder-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .folder-list::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.85);
+            border-radius: 999px;
+        }
+        
+        .folder-list::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, rgba(148, 163, 184, 0.8), rgba(79, 70, 229, 0.9));
+            border-radius: 999px;
+        }
+        
+        .empty-folder-list {
+            text-align: center;
+            color: rgba(148, 163, 184, 0.75);
+            padding: 26px 18px;
+            font-size: 12px;
+        }
+        
+        .empty-folder-list-icon {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+        
+        .folder-item {
+            padding: 12px 12px;
+            background: rgba(15, 23, 42, 0.9);
+            border-radius: 14px;
+            cursor: pointer;
+            border: 1px solid rgba(51, 65, 85, 0.8);
+            transition: all 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            color: rgba(226, 232, 240, 0.8);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .folder-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 120% 0%, rgba(94, 234, 212, 0.08), transparent 65%);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+        
+        .folder-item:hover {
+            background: rgba(15, 23, 42, 0.98);
+            border-color: rgba(94, 234, 212, 0.5);
+            color: #e5e7eb;
+            transform: translateY(-1px);
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.9);
+        }
+        
+        .folder-item:hover::before {
+            opacity: 1;
+        }
+        
+        .folder-item.active {
+            background: radial-gradient(circle at 0% 0%, rgba(94, 234, 212, 0.18), transparent 65%), radial-gradient(circle at 100% 100%, rgba(96, 165, 250, 0.25), transparent 55%), rgba(15, 23, 42, 0.98);
+            border-color: rgba(94, 234, 212, 0.8);
+            color: #f9fafb;
+            box-shadow: 0 18px 55px rgba(15, 23, 42, 0.95), 0 0 0 1px rgba(15, 23, 42, 0.8);
+        }
+        
+        .folder-name {
+            flex: 1;
+            font-size: 13px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        
+        .folder-count {
+            font-size: 11px;
+            background: radial-gradient(circle at 0 0, rgba(94, 234, 212, 0.2), transparent 65%), rgba(15, 23, 42, 0.9);
+            padding: 3px 9px;
+            border-radius: 999px;
+            font-weight: 600;
+            color: rgba(226, 232, 240, 0.95);
+            border: 1px solid rgba(94, 234, 212, 0.6);
+        }
+        
+        .folder-delete {
+            background: rgba(15, 23, 42, 0.9);
+            color: rgba(248, 113, 113, 0.9);
+            border: 1px solid rgba(248, 113, 113, 0.8);
+            width: 26px;
+            height: 26px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 16px;
+            display: none;
+            transition: all 0.16s ease;
+            flex-shrink: 0;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .folder-item:hover .folder-delete {
+            display: flex;
+        }
+        
+        .folder-delete:hover {
+            background: rgba(248, 113, 113, 0.24);
+            transform: scale(1.05) translateY(-1px);
+            box-shadow: 0 0 18px rgba(248, 113, 113, 0.4);
+        }
+        /* Buttons */
+        
+        .btn {
+            padding: 11px 22px;
+            border: none;
+            border-radius: 999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.22s ease;
+            font-size: 13px;
+            font-family: 'Poppins', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            column-gap: 6px;
+            text-align: center;
+            letter-spacing: 0.02em;
+        }
+        
+        .btn-primary {
+            background: radial-gradient(circle at 0 0, rgba(94, 234, 212, 0.35), transparent 70%), linear-gradient(120deg, var(--primary), var(--primary-dark));
+            color: white;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.9), 0 0 20px rgba(129, 140, 248, 0.6);
+            border: 1px solid rgba(129, 140, 248, 0.9);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.95), 0 0 28px rgba(129, 140, 248, 0.75);
+            filter: brightness(1.03);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.9);
+        }
+        
+        .btn-small {
+            padding: 9px 15px;
+            font-size: 11px;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(120deg, #fb923c, #f97316, #ea580c);
+            color: #0b1020;
+            border: 1px solid rgba(251, 146, 60, 0.9);
+            box-shadow: 0 12px 34px rgba(15, 23, 42, 0.9), 0 0 20px rgba(251, 146, 60, 0.55);
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 18px 42px rgba(15, 23, 42, 0.95), 0 0 28px rgba(251, 146, 60, 0.7);
+            filter: brightness(1.03);
+        }
+        /* Card shell */
+        
+        .card {
+            background: var(--glass-soft);
+            backdrop-filter: blur(26px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 22px;
+            padding: 30px 28px 26px;
+            box-shadow: 0 30px 90px rgba(15, 23, 42, 0.9), 0 0 0 1px rgba(15, 23, 42, 0.8);
+            animation: slideUp 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: -80px;
+            background: radial-gradient(circle at 0% 0%, rgba(94, 234, 212, 0.12), transparent 55%), radial-gradient(circle at 100% 100%, rgba(129, 140, 248, 0.14), transparent 55%);
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        
+        .card>* {
+            position: relative;
+            z-index: 1;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(26px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .card h2 {
+            color: #e5e7eb;
+            margin-bottom: 22px;
+            font-size: 24px;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .card h2 span {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+        }
+        
+        .card h2 span::before {
+            content: '';
+            width: 9px;
+            height: 9px;
+            border-radius: 999px;
+            background: radial-gradient(circle, #4ade80 0%, transparent 65%);
+            box-shadow: 0 0 13px rgba(74, 222, 128, 0.9);
+        }
+        /* Stats */
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-box {
+            background: radial-gradient(circle at 0 0, rgba(94, 234, 212, 0.12), transparent 65%), radial-gradient(circle at 100% 100%, rgba(96, 165, 250, 0.16), transparent 65%), rgba(15, 23, 42, 0.96);
+            border: 1px solid rgba(148, 163, 184, 0.45);
+            color: white;
+            padding: 18px 18px 16px;
+            border-radius: 18px;
+            text-align: left;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(24px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-box::after {
+            content: '';
+            position: absolute;
+            inset: -40px;
+            background: radial-gradient(circle at 120% 0%, rgba(94, 234, 212, 0.16), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-3px);
+            border-color: rgba(94, 234, 212, 0.8);
+            box-shadow: 0 22px 55px rgba(15, 23, 42, 0.95), var(--accent-glow);
+        }
+        
+        .stat-box:hover::after {
+            opacity: 1;
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(125deg, #60a5fa, #c4b5fd, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .stat-label {
+            font-size: 11px;
+            opacity: 0.78;
+            margin-top: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-weight: 600;
+            color: rgba(148, 163, 184, 0.95);
+        }
+        /* Textarea */
+        
+        textarea {
+            width: 100%;
+            padding: 15px 14px;
+            border: 1px solid rgba(51, 65, 85, 0.95);
+            border-radius: 14px;
+            font-size: 13px;
+            font-family: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            resize: vertical;
+            min-height: 260px;
+            margin-bottom: 14px;
+            background: radial-gradient(circle at 0 0, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.98));
+            color: #e5e7eb;
+            backdrop-filter: blur(18px);
+            transition: all 0.25s ease;
+            box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 1);
+        }
+        
+        textarea::placeholder {
+            color: rgba(148, 163, 184, 0.8);
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: rgba(129, 140, 248, 0.9);
+            box-shadow: 0 0 0 1px rgba(15, 23, 42, 1), 0 0 20px rgba(129, 140, 248, 0.7);
+            background: radial-gradient(circle at 100% 0, rgba(30, 64, 175, 0.35), rgba(15, 23, 42, 0.97));
+        }
+        /* Message */
+        
+        .message {
+            padding: 13px 14px;
+            border-radius: 14px;
+            margin-bottom: 16px;
+            display: none;
+            font-weight: 500;
+            border-left: 3px solid;
+            animation: slideDown 0.3s ease-out;
+            font-size: 13px;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .message.success {
+            display: block;
+            background: rgba(22, 163, 74, 0.16);
+            color: #bbf7d0;
+            border-color: #22c55e;
+            border: 1px solid rgba(22, 163, 74, 0.45);
+            box-shadow: 0 0 18px rgba(34, 197, 94, 0.35);
+        }
+        
+        .message.error {
+            display: block;
+            background: rgba(220, 38, 38, 0.13);
+            color: #fecaca;
+            border-color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            box-shadow: 0 0 18px rgba(248, 113, 113, 0.32);
+        }
+        /* Empty State */
+        
+        .empty-state {
+            text-align: center;
+            padding: 80px 40px;
+            color: rgba(148, 163, 184, 0.85);
+        }
+        
+        .empty-state-icon {
+            font-size: 72px;
+            margin-bottom: 16px;
+            animation: bounce 2.4s infinite;
+            filter: drop-shadow(0 0 18px rgba(129, 140, 248, 0.65));
+        }
+        
+        @keyframes bounce {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-16px);
+            }
+        }
+        
+        .empty-state p {
+            font-size: 17px;
+            margin-bottom: 7px;
+            font-weight: 500;
+        }
+        /* Cards List */
+        
+        .cards-list {
+            max-height: 520px;
+            overflow-y: auto;
+            margin-top: 14px;
+            padding-right: 4px;
+        }
+        
+        .cards-list::-webkit-scrollbar {
+            width: 7px;
+        }
+        
+        .cards-list::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.96);
+            border-radius: 999px;
+        }
+        
+        .cards-list::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, rgba(148, 163, 184, 0.9), rgba(55, 48, 163, 0.95));
+            border-radius: 999px;
+        }
+        
+        .card-item {
+            background: radial-gradient(circle at 0 0, rgba(94, 234, 212, 0.13), transparent 65%), rgba(15, 23, 42, 0.98);
+            padding: 15px 14px 13px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(51, 65, 85, 0.92);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 14px;
+            transition: all 0.27s ease;
+            border-left: 3px solid rgba(129, 140, 248, 0.9);
+            animation: fadeIn 0.25s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .card-item:hover {
+            background: radial-gradient(circle at 100% 0, rgba(96, 165, 250, 0.19), transparent 65%), rgba(15, 23, 42, 0.98);
+            border-color: rgba(129, 140, 248, 0.9);
+            border-left-color: rgba(94, 234, 212, 0.95);
+            transform: translateX(5px);
+            box-shadow: 0 16px 45px rgba(15, 23, 42, 0.98);
+        }
+        
+        .card-content {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .card-question {
+            font-weight: 600;
+            color: #e5e7eb;
+            margin-bottom: 5px;
+            font-size: 14px;
+            word-break: break-word;
+        }
+        
+        .card-answer {
+            color: rgba(148, 163, 184, 0.9);
+            font-size: 12px;
+            word-break: break-word;
+            line-height: 1.5;
+        }
+        
+        .btn-delete {
+            background: rgba(15, 23, 42, 0.96);
+            color: #fecaca;
+            border: 1px solid rgba(248, 113, 113, 0.9);
+            padding: 6px 11px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+            flex-shrink: 0;
+            transition: all 0.18s ease;
+            white-space: nowrap;
+        }
+        
+        .btn-delete:hover {
+            background: rgba(248, 113, 113, 0.2);
+            border-color: #ef4444;
+            transform: translateY(-1px) scale(1.03);
+            box-shadow: 0 0 18px rgba(248, 113, 113, 0.4);
+        }
+        /* View Selector */
+        
+        .view-selector {
+            display: inline-flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 4px;
+            background: rgba(15, 23, 42, 0.94);
+            border-radius: 999px;
+            border: 1px solid rgba(51, 65, 85, 0.9);
+        }
+        
+        .view-btn {
+            padding: 9px 18px;
+            border-radius: 999px;
+            border: none;
+            background: transparent;
+            color: rgba(148, 163, 184, 0.9);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.24s ease;
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .view-btn:hover {
+            color: #e5e7eb;
+        }
+        
+        .view-btn.active {
+            background: radial-gradient(circle at 0 0, rgba(94, 234, 212, 0.26), transparent 60%), linear-gradient(120deg, var(--primary), var(--primary-dark));
+            color: #f9fafb;
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.9), 0 0 20px rgba(129, 140, 248, 0.7);
+        }
+        /* Study Mode */
+        
+        .study-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .study-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: #f9fafb;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: -0.02em;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .study-title::after {
+            content: 'Deep Focus';
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 0 0, rgba(94, 234, 212, 0.28), transparent 70%), rgba(15, 23, 42, 0.98);
+            border: 1px solid rgba(94, 234, 212, 0.92);
+            color: rgba(226, 232, 240, 0.92);
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: rgba(15, 23, 42, 0.96);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 9px;
+            border: 1px solid rgba(51, 65, 85, 0.95);
+            box-shadow: inset 0 0 10px rgba(15, 23, 42, 1);
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #22c55e, #84cc16, #f97316, #ef4444);
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 18px rgba(34, 197, 94, 0.6), 0 0 12px rgba(251, 146, 60, 0.5);
+        }
+        
+        .progress-text {
+            font-size: 12px;
+            color: rgba(148, 163, 184, 0.95);
+            text-align: left;
+            margin-bottom: 18px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        /* Flashcard */
+        
+        .flashcard {
+            background: radial-gradient(circle at 0 0, rgba(94, 234, 212, 0.22), transparent 60%), radial-gradient(circle at 100% 100%, rgba(129, 140, 248, 0.22), transparent 60%), rgba(15, 23, 42, 0.97);
+            border: 1px solid rgba(129, 140, 248, 0.9);
+            color: white;
+            min-height: 310px;
+            border-radius: 22px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 36px 32px;
+            cursor: pointer;
+            text-align: center;
+            margin-bottom: 28px;
+            box-shadow: 0 26px 80px rgba(15, 23, 42, 0.96), 0 0 40px rgba(129, 140, 248, 0.7);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            word-break: break-word;
+            backdrop-filter: blur(26px);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .flashcard:hover {
+            transform: translateY(-5px) rotateX(1.1deg) rotateY(-1.1deg);
+            box-shadow: 0 32px 90px rgba(15, 23, 42, 0.96), 0 0 42px rgba(94, 234, 212, 0.8);
+            border-color: rgba(94, 234, 212, 0.95);
+        }
+        
+        .flashcard.flipped {
+            background: radial-gradient(circle at 0 0, rgba(74, 222, 128, 0.26), transparent 60%), radial-gradient(circle at 100% 100%, rgba(52, 211, 153, 0.22), transparent 60%), rgba(15, 23, 42, 0.97);
+            border-color: rgba(74, 222, 128, 0.95);
+            box-shadow: 0 30px 90px rgba(15, 23, 42, 0.98), 0 0 40px rgba(74, 222, 128, 0.78);
+        }
+        
+        .flashcard-label {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.26em;
+            font-weight: 700;
+            color: rgba(148, 163, 184, 0.95);
+        }
+        
+        .flashcard-content {
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1.4;
+            font-family: 'Poppins', sans-serif;
+            animation: fadeIn 0.25s ease-out;
+        }
+        /* Study Controls */
+        
+        .study-controls {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .study-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 999px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.24s ease;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            box-shadow: 0 14px 36px rgba(15, 23, 42, 0.96), 0 0 18px rgba(15, 23, 42, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .study-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.98), 0 0 26px rgba(15, 23, 42, 1);
+        }
+        
+        .study-btn:active {
+            transform: translateY(-1px) scale(0.99);
+        }
+        
+        .study-btn-again {
+            background: linear-gradient(120deg, #ef4444, #b91c1c);
+            color: #fef2f2;
+            border: 1px solid rgba(248, 113, 113, 0.95);
+        }
+        
+        .study-btn-good {
+            background: linear-gradient(120deg, #f97316, #ea580c);
+            color: #0b1020;
+            border: 1px solid rgba(251, 146, 60, 0.95);
+        }
+        
+        .study-btn-easy {
+            background: linear-gradient(120deg, #22c55e, #16a34a);
+            color: #022c22;
+            border: 1px solid rgba(74, 222, 128, 0.95);
+        }
+        /* Study Nav */
+        
+        .study-nav {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .study-nav button {
+            padding: 10px 18px;
+            border: 1px solid rgba(51, 65, 85, 0.96);
+            background: rgba(15, 23, 42, 0.98);
+            color: rgba(226, 232, 240, 0.96);
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+        }
+        
+        .study-nav button:hover:not(:disabled) {
+            background: linear-gradient(120deg, var(--primary), var(--primary-dark));
+            border-color: rgba(129, 140, 248, 0.95);
+            transform: translateY(-2px);
+            box-shadow: 0 16px 36px rgba(15, 23, 42, 0.96), 0 0 22px rgba(129, 140, 248, 0.75);
+        }
+        
+        .study-nav button:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+        /* Modal */
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 0 0, rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.96));
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.25s ease-out;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: radial-gradient(circle at 0 0, rgba(94, 234, 212, 0.22), transparent 60%), rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(24px);
+            padding: 26px 22px 20px;
+            border-radius: 20px;
+            max-width: 420px;
+            width: 100%;
+            border: 1px solid rgba(148, 163, 184, 0.65);
+            box-shadow: 0 30px 80px rgba(15, 23, 42, 0.98), 0 0 0 1px rgba(15, 23, 42, 1);
+        }
+        
+        .modal-content h3 {
+            margin-bottom: 16px;
+            color: #f9fafb;
+            font-size: 20px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .modal-content input {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid rgba(51, 65, 85, 0.96);
+            border-radius: 14px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            background: rgba(15, 23, 42, 0.96);
+            color: #e5e7eb;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .modal-content input::placeholder {
+            color: rgba(148, 163, 184, 0.9);
+        }
+        
+        .modal-content input:focus {
+            outline: none;
+            border-color: rgba(129, 140, 248, 0.95);
+            box-shadow: 0 0 0 1px rgba(15, 23, 42, 1), 0 0 18px rgba(129, 140, 248, 0.7);
+            background: radial-gradient(circle at 100% 0, rgba(30, 64, 175, 0.38), rgba(15, 23, 42, 0.97));
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .modal-actions button {
+            flex: 1;
+            padding: 10px 0;
+            border: none;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+        }
+        
+        .btn-confirm {
+            background: linear-gradient(120deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.98), 0 0 20px rgba(129, 140, 248, 0.7);
+            border: 1px solid rgba(129, 140, 248, 0.95);
+        }
+        
+        .btn-confirm:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.98), 0 0 26px rgba(129, 140, 248, 0.8);
+        }
+        
+        .btn-cancel {
+            background: rgba(15, 23, 42, 0.96);
+            color: rgba(226, 232, 240, 0.92);
+            border: 1px solid rgba(51, 65, 85, 0.98);
+        }
+        
+        .btn-cancel:hover {
+            background: rgba(30, 41, 59, 0.96);
+            transform: translateY(-1px);
+        }
+        
+        h3 {
+            color: #e5e7eb;
+            margin: 20px 0 12px 0;
+            font-size: 17px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        /* Responsive */
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 14px 30px;
+            }
+            .card {
+                padding: 22px 18px 20px;
+            }
+            header {
+                padding: 20px 18px;
+            }
+            header h1 {
+                font-size: 26px;
+            }
+            .card h2 {
+                font-size: 20px;
+            }
+            .study-title {
+                font-size: 22px;
+            }
+            .flashcard {
+                min-height: 240px;
+                padding: 26px 22px;
+            }
+            .flashcard-content {
+                font-size: 20px;
+            }
+            .modal-content {
+                padding: 22px 18px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>✨ StudyFlow <span>Refined Recall</span></h1>
+            </div>
+            <p>Master spaced repetition · Own your exams</p>
+        </header>
+
+        <!-- Library View -->
+        <div class="grid">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h3>📁 Your Folders</h3>
+                <div class="folder-list" id="folderList">
+                    <div class="empty-folder-list">
+                        <div class="empty-folder-list-icon">📂</div>
+                        <p>No folders yet</p>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-small" onclick="showNewFolderModal()">+ New Folder</button>
+            </div>
+
+            <!-- Main Content -->
+            <div>
+                <div class="card">
+                    <h2>
+                        <span id="folderTitle">Welcome to StudyFlow</span>
+                        <button class="btn btn-small btn-secondary" id="renameBtn" onclick="showRenameModal()" style="display: none;">✎ Rename</button>
+                    </h2>
+
+                    <div id="emptyState" class="empty-state">
+                        <div class="empty-state-icon">📚</div>
+                        <p>Select a folder to get started</p>
+                        <p style="font-size: 13px; margin-top: 6px; opacity: 0.7;">Create a new folder or open an existing one to build your deck.</p>
+                    </div>
+
+                    <div id="mainContent" style="display: none;">
+                        <div class="view-selector">
+                            <button class="view-btn active" onclick="switchView('manage')">📚 Manage Cards</button>
+                            <button class="view-btn" onclick="switchView('study')">🎓 Study Mode</button>
+                        </div>
+
+                        <!-- Manage View -->
+                        <div id="manageView">
+                            <div class="stats" id="statsContainer"></div>
+                            <div id="messageBox" class="message"></div>
+
+                            <h3>➕ Add New Flashcards</h3>
+                            <textarea id="textInput" placeholder="Q: Your question?&#10;A: Your answer&#10;&#10;Q: Another question?&#10;A: Another answer"></textarea>
+                            <button class="btn btn-primary" onclick="addFlashcards()">✨ Add Flashcards</button>
+
+                            <h3>📖 Your Flashcards (<span id="cardCount">0</span>)</h3>
+                            <div class="cards-list" id="cardsList">
+                                <div style="text-align: center; color: rgba(148, 163, 184, 0.9); padding: 34px;">No flashcards yet. Add some above!</div>
+                            </div>
+                        </div>
+
+                        <!-- Study View -->
+                        <div id="studyView" style="display: none;">
+                            <div class="study-header">
+                                <div class="study-title">Study Mode</div>
+                                <button class="btn btn-small btn-secondary" onclick="switchView('manage')">← Back</button>
+                            </div>
+
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                            </div>
+                            <div class="progress-text" id="progressText">1 / 10</div>
+
+                            <div class="flashcard" id="studyCard" onclick="flipStudyCard()">
+                                <div class="flashcard-label" id="cardLabel">Question</div>
+                                <div class="flashcard-content" id="cardContent">Click to start</div>
+                            </div>
+
+                            <div class="study-controls">
+                                <button class="study-btn study-btn-again" onclick="cardResponse('again')">🔴 Need Review</button>
+                                <button class="study-btn study-btn-good" onclick="cardResponse('good')">🟡 Good</button>
+                                <button class="study-btn study-btn-easy" onclick="cardResponse('easy')">🟢 Perfect</button>
+                            </div>
+
+                            <div class="study-nav">
+                                <button onclick="prevStudyCard()" id="prevBtn">← Previous</button>
+                                <button onclick="nextStudyCard()" id="nextBtn">Next →</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Folder Modal -->
+    <div id="newFolderModal" class="modal">
+        <div class="modal-content">
+            <h3>✨ Create New Folder</h3>
+            <input type="text" id="folderNameInput" placeholder="Enter folder name (e.g., Economics, Biology)" autofocus>
+            <div class="modal-actions">
+                <button class="btn-confirm" onclick="createFolder()">Create</button>
+                <button class="btn-cancel" onclick="closeModal('newFolderModal')">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rename Folder Modal -->
+    <div id="renameFolderModal" class="modal">
+        <div class="modal-content">
+            <h3>✏️ Rename Folder</h3>
+            <input type="text" id="renameInput" placeholder="New folder name" autofocus>
+            <div class="modal-actions">
+                <button class="btn-confirm" onclick="renameFolder()">Rename</button>
+                <button class="btn-cancel" onclick="closeModal('renameFolderModal')">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let folders = {};
+        let currentFolder = null;
+        let currentView = 'manage';
+        let studyIndex = 0;
+        let studyCardFlipped = false;
+
+        function init() {
+            try {
+                const saved = localStorage.getItem('studyflow_folders');
+                if (saved) {
+                    folders = JSON.parse(saved);
+                }
+            } catch (e) {
+                const saved = sessionStorage.getItem('studyflow_folders');
+                if (saved) {
+                    folders = JSON.parse(saved);
+                }
+            }
+            renderFolders();
+        }
+
+        function saveFolders() {
+            try {
+                localStorage.setItem('studyflow_folders', JSON.stringify(folders));
+            } catch (e) {
+                try {
+                    sessionStorage.setItem('studyflow_folders', JSON.stringify(folders));
+                } catch (e) {
+                    console.error('Storage not available');
+                }
+            }
+        }
+
+        function renderFolders() {
+            const folderList = document.getElementById('folderList');
+
+            if (Object.keys(folders).length === 0) {
+                folderList.innerHTML = `
+                    <div class="empty-folder-list">
+                        <div class="empty-folder-list-icon">📂</div>
+                        <p>No folders yet</p>
+                    </div>
+                `;
+                return;
+            }
+
+            folderList.innerHTML = '';
+
+            Object.keys(folders).forEach(folderName => {
+                const div = document.createElement('div');
+                div.className = 'folder-item' + (currentFolder === folderName ? ' active' : '');
+                div.innerHTML = `
+                    <div style="flex: 1; min-width: 0;">
+                        <div class="folder-name">${folderName}</div>
+                    </div>
+                    <div class="folder-count">${folders[folderName].length}</div>
+                    <button class="folder-delete" onclick="deleteFolder('${folderName}', event)">×</button>
+                `;
+                div.onclick = () => selectFolder(folderName);
+                folderList.appendChild(div);
+            });
+        }
+
+        function selectFolder(folderName) {
+            currentFolder = folderName;
+            renderFolders();
+            updateMainContent();
+        }
+
+        function updateMainContent() {
+            if (!currentFolder) {
+                document.getElementById('emptyState').style.display = 'block';
+                document.getElementById('mainContent').style.display = 'none';
+                document.getElementById('renameBtn').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('emptyState').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+            document.getElementById('renameBtn').style.display = 'inline-flex';
+            document.getElementById('folderTitle').textContent = currentFolder;
+            document.getElementById('textInput').value = '';
+            document.getElementById('messageBox').className = 'message';
+
+            updateStats();
+            displayCards();
+            switchView('manage');
+        }
+
+        function updateStats() {
+            const cards = folders[currentFolder] || [];
+            const total = Object.values(folders).reduce((sum, f) => sum + f.length, 0);
+            document.getElementById('statsContainer').innerHTML = `
+                <div class="stat-box">
+                    <div class="stat-number">${cards.length}</div>
+                    <div class="stat-label">Cards in Folder</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">${Object.keys(folders).length}</div>
+                    <div class="stat-label">Total Folders</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">${total}</div>
+                    <div class="stat-label">Total Cards</div>
+                </div>
+            `;
+        }
+
+        function displayCards() {
+            const cards = folders[currentFolder] || [];
+            const cardsList = document.getElementById('cardsList');
+            document.getElementById('cardCount').textContent = cards.length;
+
+            if (cards.length === 0) {
+                cardsList.innerHTML = '<div style="text-align: center; color: rgba(148, 163, 184, 0.9); padding: 34px;">No flashcards yet. Add some above!</div>';
+                return;
+            }
+
+            cardsList.innerHTML = cards.map((card, idx) => `
+                <div class="card-item">
+                    <div class="card-content">
+                        <div class="card-question">❓ ${card.front}</div>
+                        <div class="card-answer">✓ ${card.back}</div>
+                    </div>
+                    <button class="btn-delete" onclick="deleteCard(${idx})">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function addFlashcards() {
+            const text = document.getElementById('textInput').value.trim();
+            if (!text || !currentFolder) {
+                showMessage('Please enter text!', 'error');
+                return;
+            }
+
+            const lines = text.split('\n');
+            let newCards = [];
+            let currentQuestion = '';
+            let currentAnswer = '';
+
+            for (let line of lines) {
+                line = line.trim();
+
+                if (line.startsWith('Q:')) {
+                    if (currentQuestion && currentAnswer) {
+                        newCards.push({
+                            front: currentQuestion.trim(),
+                            back: currentAnswer.trim()
+                        });
+                    }
+                    currentQuestion = line.substring(2).trim();
+                    currentAnswer = '';
+                } else if (line.startsWith('A:')) {
+                    currentAnswer = line.substring(2).trim();
+                }
+            }
+
+            if (currentQuestion && currentAnswer) {
+                newCards.push({
+                    front: currentQuestion.trim(),
+                    back: currentAnswer.trim()
+                });
+            }
+
+            if (newCards.length === 0) {
+                showMessage('No flashcards found!', 'error');
+                return;
+            }
+
+            folders[currentFolder] = [...(folders[currentFolder] || []), ...newCards];
+            saveFolders();
+            showMessage(`✓ Added ${newCards.length} flashcards!`, 'success');
+            document.getElementById('textInput').value = '';
+            updateStats();
+            displayCards();
+        }
+
+        function deleteCard(idx) {
+            if (confirm('Delete this card?')) {
+                folders[currentFolder].splice(idx, 1);
+                saveFolders();
+                displayCards();
+                updateStats();
+            }
+        }
+
+        function createFolder() {
+            const name = document.getElementById('folderNameInput').value.trim();
+            if (!name) {
+                alert('Please enter folder name!');
+                return;
+            }
+            if (folders[name]) {
+                alert('Folder already exists!');
+                return;
+            }
+            folders[name] = [];
+            saveFolders();
+            selectFolder(name);
+            closeModal('newFolderModal');
+            document.getElementById('folderNameInput').value = '';
+        }
+
+        function deleteFolder(folderName, event) {
+            event.stopPropagation();
+            if (confirm(`Delete "${folderName}" and all ${folders[folderName].length} cards?`)) {
+                delete folders[folderName];
+                if (currentFolder === folderName) {
+                    currentFolder = null;
+                    updateMainContent();
+                }
+                saveFolders();
+                renderFolders();
+            }
+        }
+
+        function showNewFolderModal() {
+            document.getElementById('newFolderModal').classList.add('active');
+            document.getElementById('folderNameInput').focus();
+        }
+
+        function showRenameModal() {
+            document.getElementById('renameFolderModal').classList.add('active');
+            document.getElementById('renameInput').value = currentFolder || '';
+            document.getElementById('renameInput').focus();
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        function renameFolder() {
+            const newName = document.getElementById('renameInput').value.trim();
+            if (!newName) {
+                alert('Please enter a new name!');
+                return;
+            }
+            if (folders[newName] && newName !== currentFolder) {
+                alert('A folder with that name already exists!');
+                return;
+            }
+            const cards = folders[currentFolder];
+            delete folders[currentFolder];
+            folders[newName] = cards;
+            currentFolder = newName;
+            saveFolders();
+            renderFolders();
+            updateMainContent();
+            closeModal('renameFolderModal');
+        }
+
+        function switchView(view) {
+            currentView = view;
+            const manageView = document.getElementById('manageView');
+            const studyView = document.getElementById('studyView');
+            const buttons = document.querySelectorAll('.view-btn');
+
+            if (view === 'manage') {
+                manageView.style.display = 'block';
+                studyView.style.display = 'none';
+            } else {
+                manageView.style.display = 'none';
+                studyView.style.display = 'block';
+                resetStudyState();
+            }
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            if (view === 'manage') {
+                buttons[0].classList.add('active');
+            } else {
+                buttons[1].classList.add('active');
+            }
+        }
+
+        function resetStudyState() {
+            studyIndex = 0;
+            studyCardFlipped = false;
+            updateStudyCard();
+        }
+
+        function updateStudyCard() {
+            const cards = folders[currentFolder] || [];
+            const cardLabel = document.getElementById('cardLabel');
+            const cardContent = document.getElementById('cardContent');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const studyCard = document.getElementById('studyCard');
+
+            if (cards.length === 0) {
+                cardLabel.textContent = 'No Cards';
+                cardContent.textContent = 'Add some flashcards in Manage view to start studying.';
+                progressFill.style.width = '0%';
+                progressText.textContent = '0 / 0';
+                prevBtn.disabled = true;
+                nextBtn.disabled = true;
+                studyCard.classList.remove('flipped');
+                return;
+            }
+
+            if (studyIndex < 0) studyIndex = 0;
+            if (studyIndex >= cards.length) studyIndex = cards.length - 1;
+
+            const current = cards[studyIndex];
+            cardLabel.textContent = studyCardFlipped ? 'Answer' : 'Question';
+            cardContent.textContent = studyCardFlipped ? current.back : current.front;
+            progressText.textContent = `${studyIndex + 1} / ${cards.length}`;
+            progressFill.style.width = `${((studyIndex + 1) / cards.length) * 100}%`;
+
+            prevBtn.disabled = studyIndex === 0;
+            nextBtn.disabled = studyIndex === cards.length - 1;
+
+            if (studyCardFlipped) {
+                studyCard.classList.add('flipped');
+            } else {
+                studyCard.classList.remove('flipped');
+            }
+        }
+
+        function flipStudyCard() {
+            const cards = folders[currentFolder] || [];
+            if (!cards.length) return;
+            studyCardFlipped = !studyCardFlipped;
+            updateStudyCard();
+        }
+
+        function cardResponse(type) {
+            const cards = folders[currentFolder] || [];
+            if (!cards.length) return;
+
+            if (type === 'again') {
+                if (studyIndex < cards.length - 1) {
+                    const [card] = cards.splice(studyIndex, 1);
+                    cards.splice(studyIndex + 1, 0, card);
+                }
+            } else if (type === 'easy') {
+                if (studyIndex < cards.length - 1) {
+                    const [card] = cards.splice(studyIndex, 1);
+                    cards.push(card);
+                }
+            }
+
+            folders[currentFolder] = cards;
+            saveFolders();
+
+            if (studyIndex < cards.length - 1) {
+                studyIndex++;
+            }
+
+            studyCardFlipped = false;
+            updateStudyCard();
+        }
+
+        function prevStudyCard() {
+            studyIndex--;
+            studyCardFlipped = false;
+            updateStudyCard();
+        }
+
+        function nextStudyCard() {
+            studyIndex++;
+            studyCardFlipped = false;
+            updateStudyCard();
+        }
+
+        function showMessage(text, type) {
+            const box = document.getElementById('messageBox');
+            box.textContent = text;
+            box.className = 'message ' + type;
+            setTimeout(() => {
+                box.className = 'message';
+            }, 2600);
+        }
+
+        window.onload = init;
+    </script>
+</body>
+
+</html>
